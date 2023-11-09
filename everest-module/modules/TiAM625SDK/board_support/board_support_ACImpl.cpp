@@ -12,6 +12,7 @@
 #include <nanopb/pb_encode.h>
 
 const int MCU_ENDPOINT_NUMBER = 14;
+const int MCU_LOCAL_ENDPOINT_NUMBER = RPMSG_ADDR_ANY;
 char ENDPOINT_NAME[] = "my_ep_name";
 const int MAX_RPMSG_BUFFER_SIZE = 512;
 
@@ -71,7 +72,7 @@ bool RPMsgLink::setup_connection() {
     }
 
     // using the standard rpmsg_chrdev
-    rpmsg_ep = rpmsg_char_open(M4F_MCU0_0, nullptr, MCU_ENDPOINT_NUMBER, ENDPOINT_NAME, 0);
+    rpmsg_ep = rpmsg_char_open(M4F_MCU0_0, nullptr, MCU_LOCAL_ENDPOINT_NUMBER, MCU_ENDPOINT_NUMBER, ENDPOINT_NAME, 0);
 
     if (!rpmsg_ep) {
         EVLOG_critical << "rpmsg_char_open failed";
